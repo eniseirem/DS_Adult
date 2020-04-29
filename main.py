@@ -1,9 +1,7 @@
-from collections import Counter
-import seaborn as sns
 
 import pandas as pd
 import numpy as np
-from matplotlib import pyplot as plt
+
 from sklearn import preprocessing
 
 # %% First, lets take our data. Since there is no names for them, I look up the explanation from data informations put the names to labels
@@ -54,10 +52,10 @@ data.drop(['workclass','-1','marital-status','occupation','relationship','-5','-
 
 # %% Now lets see, what our data look like.
 
-print(data.info())
+#print(data.info())
 #it says non-null so we're good. We don't need to do anything about missing values.
 #I'll check the data for not make any mistake while working on it.
-print(data.values)
+#print(data.values)
 
 
 #%% Let's change our data to little bit to make it more analyzable. as we know we have
@@ -107,20 +105,10 @@ conditions = [
 result = [0,1,2,3,4]
 data['education-num']=np.select(conditions,result)
 
-print(data.tail())
-
 #I do not need to keep education so;
 
 data.drop(['education'], axis=1, inplace=True)
 
 #%%
 
-target = data.values[:,0] #lets see education level distribution
-counter = Counter(target)
-for k,v in counter.items():
-	per = v / len(target) * 100
-	print('Education-level=%s, Count=%d, Percentage=%.3f%%' % (k, v, per))
 
-#plot this result.
-sns.barplot(x='education-num', y='x', data=data, estimator=lambda x: len(x) / len(data) * 100)
-#sns.barplot(x='education-num', y='Values', data=data, estimator=lambda x: sum(x==0)*100.0/len(x))

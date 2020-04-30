@@ -1,15 +1,10 @@
 import seaborn as sns
 from collections import Counter
 from matplotlib import pyplot as plt
-import main as main
-from math import pi
+from models import preprocess as main
 
 import pandas as pd
 
-from bokeh.io import output_file, show
-from bokeh.palettes import Category20c
-from bokeh.plotting import figure
-from bokeh.transform import cumsum
 data = main.data
 #I add clean data from main.py
 

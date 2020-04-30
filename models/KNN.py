@@ -1,9 +1,7 @@
-import main as main
 from sklearn.neighbors import KNeighborsClassifier
+import preprocess as prep
 
-
-data = main.data
-
+data = prep.data
 #income1 = data.iloc["income"].values
 #X = data.drop(['sex','race'], axis=1) #need to made a new data
 

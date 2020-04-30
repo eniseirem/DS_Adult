@@ -1,13 +1,13 @@
-import main as main
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix as cm
 from matplotlib import pyplot as plt
 import seaborn as sns
+import preprocess as prep
 
 
-train_data = main.data
+train_data = prep.data
 X = train_data.drop(['income'], axis=1)
 y = train_data['income']
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3, random_state=42)

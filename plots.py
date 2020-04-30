@@ -31,4 +31,32 @@ plt.show()
 #sns.barplot(x='education-num', y='Values', data=data, estimator=lambda x: sum(x==0)*100.0/len(x))
 
 
-# %%
+#%% Education and income relation
+
+print(data.groupby("education-num").mean() * 100)
+
+pd.crosstab(data["education-num"],data.income).plot(kind='bar')
+plt.title('Education and Income Relation')
+plt.xlabel('Education')
+plt.ylabel('Income')
+plt.show()
+
+#%% Gender and Income
+
+pd.crosstab(data["sex"],data.income).apply(lambda r: r/r.sum() *100, axis=1).plot(kind='bar')
+plt.title('Gender and Income Relation')
+plt.xlabel('sex')
+plt.ylabel('Income')
+plt.show()
+
+#as expected female income is much lower
+
+#%%
+
+print(data.groupby("income").mean())
+
+#%%
+# income_all = data.groupby(['education-num', 'income'])
+# p = income_all.groupby(level=0).apply(lambda x:100 * x / float(x.sum()))
+#
+# print(p)

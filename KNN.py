@@ -3,7 +3,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 data = main.data
-#%%
+
 #income1 = data.iloc["income"].values
 #X = data.drop(['sex','race'], axis=1) #need to made a new data
 
@@ -35,16 +35,17 @@ data = main.data
 # data = data.join(sex_race, on=['sex','race'])
 # print(data.sex_race)
 # sum_df = df.groupby(['year','month']).agg({'score': 'sum', 'num_attempts': 'sum'})
- #%%
-grouped_multiple = data.groupby(['sex', 'race']).agg({'income': ['mean', 'min', 'max'],'education':['mean','min','max']})
+
+grouped_multiple = data.groupby(['sex', 'race']).agg({'income': ['mean'],'education-num':['mean']})
 print(grouped_multiple)
+#while education is high for the FW, income is low
 #%%
 
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 
-y =data['']
+y =data['sex']
 
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(data,y, test_size=0.3, random_state=42)
 
 knn = KNeighborsClassifier(n_neighbors=2,metric='minkowski')
 knn.fit(X_train,y_train.ravel())

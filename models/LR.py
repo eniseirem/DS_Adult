@@ -11,6 +11,8 @@ train_data = prep.data
 X = train_data.drop(['income'], axis=1)
 y = train_data['income']
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3, random_state=42)
+
+
 lr = LogisticRegression(random_state=42)
 lr.fit(X_train, y_train)
 
@@ -52,6 +54,7 @@ X_train[X_train.columns[rfe.ranking_==1].values].head()
 #%%
 import statsmodels.api as sm
 from scipy import stats
+
 stats.chisqprob = lambda chisq, df: stats.chi2.sf(chisq, df)
 
 logit_model=sm.Logit(y_train, X_train[X_train.columns[rfe.ranking_==1].values])
@@ -59,3 +62,11 @@ result=logit_model.fit()
 predictions= result.predict(X_test[X_test.columns[rfe.ranking_==1].values])
 print(classification_report(y_test, predictions.round(), target_names=['<=50K', '>50K']))
 print(result.summary())
+
+#%%
+
+test_data= prep.test_data
+X_test= test_data
+predictions = lr.predict(X_test)
+
+print(predictions)

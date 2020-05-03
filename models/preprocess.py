@@ -110,5 +110,40 @@ data['education-num']=np.select(conditions,result)
 data.drop(['education'], axis=1, inplace=True)
 
 #%%
+print(data.info())
+labels=[
+"age",
+"workclass",
+"fnlwgt",
+"education",
+"education-num",
+"marital-status",
+"occupation",
+"relationship",
+"race",
+"sex",
+"capital-gain",
+"capital-loss",
+"hours-per-week",
+"native-country",
+]
+test_data = pd.read_csv('../data/adult (1).test', names=labels, na_values=missing_values)
 
+test_data.drop(['workclass','age','marital-status','occupation','relationship','capital-gain','capital-loss','fnlwgt','native-country','hours-per-week'], axis=1, inplace=True)
 
+test_data['race'] = [1 if x == ' White' else 0 for x in test_data['race']]
+test_data['sex']=[0 if x ==' Female' else 1 for x in test_data['sex']]
+col_name='education-num'
+
+conditions = [
+    test_data[col_name].eq(1),
+    test_data[col_name].isin([2,3,4,5,6,7,8]),
+    test_data[col_name].eq(9),
+    test_data[col_name].isin([10,11,12,13]),
+    test_data[col_name].isin([14,15,16]),
+]
+result = [0,1,2,3,4]
+test_data['education-num']=np.select(conditions,result)
+test_data.drop(['education'], axis=1, inplace=True)
+print(test_data.info())
+print(test_data.head())

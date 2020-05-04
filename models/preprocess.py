@@ -147,3 +147,6 @@ test_data['education-num']=np.select(conditions,result)
 test_data.drop(['education'], axis=1, inplace=True)
 print(test_data.info())
 print(test_data.head())
+
+#%%
+

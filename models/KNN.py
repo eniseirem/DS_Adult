@@ -54,10 +54,10 @@ result = knn.predict(X_test)
 print(result)
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test,result)
-#print(cm)
+print(cm)
 
 
 from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, result)
-#print(accuracy)
+print(accuracy)
 

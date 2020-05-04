@@ -1,8 +1,7 @@
 import seaborn as sns
 from collections import Counter
 from matplotlib import pyplot as plt
-from models import preprocess as main
-
+import preprocess as main
 import pandas as pd
 
 data = main.data
@@ -38,9 +37,9 @@ plt.show()
 
 #%% Gender and Income
 
-pd.crosstab(data["sex"],data.income).apply(lambda r: r/r.sum() *100, axis=1).plot(kind='bar')
-plt.title('Gender and Income Relation')
-plt.xlabel('sex')
+pd.crosstab(data["race"],data["income"]).apply(lambda r: r/r.sum() *100, axis=1).plot(kind='bar')
+plt.title('Race and Income Relation')
+plt.xlabel('race')
 plt.ylabel('Income')
 plt.show()
 

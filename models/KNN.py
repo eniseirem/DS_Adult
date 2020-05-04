@@ -61,3 +61,11 @@ from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, result)
 print(accuracy)
 
+#%%
+# test_data= prep.test_data
+# X_test = test_data
+# X_test = X_train.reshape(1, -1)
+#
+# res = knn.predict(X_test)
+# X_test["income"] = res
+# print(X_test)

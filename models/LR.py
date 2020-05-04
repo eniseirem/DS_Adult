@@ -67,6 +67,8 @@ print(result.summary())
 
 test_data= prep.test_data
 X_test= test_data
-predictions = lr.predict(X_test)
+#predictions = result.predict(X_test[X_test.columns[rfe.ranking_==1].values])
+#print(result.summary)
+predictions=lr.predict(X_test)
+X_test["predict_income"] = predictions
 
-print(predictions)

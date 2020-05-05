@@ -46,9 +46,9 @@ from sklearn.model_selection import train_test_split
 
 y =data['income']
 
-X_train, X_test, y_train, y_test = train_test_split(data,y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(data,y, test_size=0.5, random_state=42)
 
-knn = KNeighborsClassifier(n_neighbors=2,metric='minkowski')
+knn = KNeighborsClassifier(n_neighbors=4,metric='minkowski')
 knn.fit(X_train,y_train.ravel())
 result = knn.predict(X_test)
 print(result)
@@ -61,10 +61,13 @@ from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, result)
 print(accuracy)
 
-#%%
+# #%%
 # test_data= prep.test_data
 # X_test = test_data
-# X_test = X_train.reshape(1, -1)
+# #X_test = X_train.reshape(len(X_test), -1)
+# vectorizer = CountVectorizer()
+# X_test = vectorizer.transform(X_test)
+#
 #
 # res = knn.predict(X_test)
 # X_test["income"] = res

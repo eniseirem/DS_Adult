@@ -1,3 +1,5 @@
+from collections import Counter
+
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
@@ -5,15 +7,41 @@ from sklearn.metrics import confusion_matrix as cm
 from matplotlib import pyplot as plt
 import seaborn as sns
 import preprocess as prep
+import numpy as np
 
 
 train_data = prep.data
 X = train_data.drop(['income'], axis=1)
 y = train_data['income']
+
+#grouped_multiple = X.groupby(['sex', 'race']).agg({'education-num':['mean']})
+#data = X.join(grouped_multiple, on=['sex','race'])
+#print(grouped_multiple)
+data = X
+col_name='sex'
+col_name2='race'
+conditions = [
+    data[col_name].eq(0) & data[col_name2].eq(0),
+    data[col_name].eq(0) & data[col_name2].eq(1),
+    data[col_name].eq(1) & data[col_name2].eq(0),
+    data[col_name].eq(1) & data[col_name2].eq(1),
+
+
+]
+result = ["00", "01", "10", "11"]
+data['s_r']=np.select(conditions,result)
+print(data.tail())
+
+X=data.drop(['sex','race'], axis=1)
+
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3, random_state=42)
 
 
-lr = LogisticRegression(random_state=42)
+# lr = LogisticRegression(random_state=0, class_weight="balanced") #0.703
+#lr = LogisticRegression(random_state=42) #0.78
+#lr = LogisticRegression(class_weight="balanced") #0.702
+lr = LogisticRegression(random_state=4,class_weight="none") #0.702
+
 lr.fit(X_train, y_train)
 
 predictions = lr.predict(X_test)
@@ -72,3 +100,23 @@ X_test= test_data
 predictions=lr.predict(X_test)
 X_test["predict_income"] = predictions
 
+#%%
+import pandas as pd
+data = X_test
+pd.crosstab(data["sex"],data["predict_income"]).apply(lambda r: r/r.sum() *100, axis=1).plot(kind='bar')
+plt.title('Sex and Income Relation')
+plt.xlabel('sex')
+plt.ylabel('Income')
+plt.show()
+class_weight="auto"
+
+#%%
+# from numpy import where
+# counter = Counter(y)
+# from matplotlib import pyplot
+#
+# for label, _ in counter.items():
+# 	row_ix = where(y == label)[0]
+# 	pyplot.scatter(X[row_ix, 0], X[row_ix, 1], label=str(label))
+# pyplot.legend()
+# pyplot.show()

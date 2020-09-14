@@ -3,6 +3,7 @@ For that, I only work with related columns for my purpose.
 I mainly use two machine learning techniques for examine data; the k-nearest neighbor and logistic regression.  
 
 
+See result report presentation : https://prezi.com/i/mw0l9nm4wx95/
 
 ## Adult Data Set
 
